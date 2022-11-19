@@ -6,21 +6,19 @@ import model.CarWash;
 public class CustomerThread extends Thread {
 
     private final CarWash carWash;
+    private final boolean interior;
 
-    public CustomerThread(CarWash carWash) {
+    public CustomerThread(CarWash carWash, boolean interior) {
         this.carWash = carWash;
+        this.interior = interior;
     }
 
     @Override
     public void run() {
-        while(true) {
-            Car car = new Car();
-            try {
-                carWash.carWashVisit(car, false);
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            carWash.carWashVisit(new Car(), interior);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
