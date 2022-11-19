@@ -49,6 +49,7 @@ public class CarWash {
     private void cleanInterior(Car car) throws InterruptedException {
         enterInteriorCleaningBoxes();
         long duration = (long) RandomGenerator.generate(1, 3) * 5;
+        threadPrint("Random interior cleaning duration is " + duration + " minutes for " + car.toString() + ".");
         Thread.sleep(duration * 1000);
         exitInteriorCleaningBoxes();
     }
