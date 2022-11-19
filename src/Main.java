@@ -7,19 +7,19 @@ public class Main {
         // init CarWash
         CarWash carWash = new CarWash("A1A Car Wash", 5, 4);
         // First hour 3-5 Cars, Every 3th car needs interior cleaning
-        printHeader("Afternoon");
+        printHeader("Afternoon ###");
         threadExec(3, 5, 3, carWash);
         // Second hour 4-7 Cars, Every 4th car needs interior cleaning
-        printHeader("Rush Hour");
+        printHeader("Rush Hour ###");
         threadExec(4, 7, 4, carWash);
         // Third hour 3-5 Cars, Every car needs interior cleaning (-1 equals every car)
-        printHeader("Evening");
+        printHeader("Evening   ###");
         threadExec(3, 5, -1, carWash);
     }
 
     private static void printHeader(String daytime) {
         System.out.println("##################################");
-        System.out.println("The next hour is " + daytime + "!");
+        System.out.println("### The next hour is " + daytime);
         System.out.println("##################################");
     }
 
