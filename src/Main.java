@@ -1,18 +1,20 @@
 import model.CarWash;
-import model.InteriorCleaningBox;
-import model.WashLine;
+import thread.CustomerThread;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         // init CarWash
-        WashLine[] washLines = new WashLine[5];
-        InteriorCleaningBox[] interiorCleaningBoxes = new InteriorCleaningBox[4];
-        for(int id = 0; id < interiorCleaningBoxes.length; id++) {
-            interiorCleaningBoxes[id] = new InteriorCleaningBox(id, 5);
-            washLines[id] = new WashLine(id, 5);
+        CarWash carWash = new CarWash("A1A Car Wash", 5, 4);
+        List<CustomerThread> ctl = new ArrayList<>();
+        for(int i = 0; i < 6; i++) {
+            ctl.add(new CustomerThread(carWash));
         }
-        int id = washLines.length - 1;
-        washLines[id] = new WashLine(id, 5);
-        CarWash carWash = new CarWash("A1A Car Wash", washLines, interiorCleaningBoxes);
+
+        for(CustomerThread ct : ctl) {
+            ct.start();
+        }
     }
 }

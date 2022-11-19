@@ -1,5 +1,6 @@
 package thread;
 
+import model.Car;
 import model.CarWash;
 
 public class CustomerThread extends Thread {
@@ -12,6 +13,14 @@ public class CustomerThread extends Thread {
 
     @Override
     public void run() {
-        // TODO
+        while(true) {
+            Car car = new Car();
+            try {
+                carWash.carWashVisit(car, false);
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

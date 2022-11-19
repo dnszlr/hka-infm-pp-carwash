@@ -8,7 +8,7 @@ public class Car {
     private String brand;
     private String color;
 
-    public Car(long id) {
+    public Car() {
         this.brand = IntTo.brand(RandomGenerator.generate(1, 5));
         this.color = IntTo.color(RandomGenerator.generate(1, 5));
     }
