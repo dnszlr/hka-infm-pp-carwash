@@ -1,14 +1,13 @@
 package model;
 
-import basic.RandomGenerator;
-
 import java.util.Arrays;
+import java.util.Optional;
 
 public class CarWash {
 
-    private String name;
-    private WashLine[] washLines;
-    private InteriorCleaningBox[] interiorCleaningBoxes;
+    private final String name;
+    private final WashLine[] washLines;
+    private final InteriorCleaningBox[] interiorCleaningBoxes;
 
     public CarWash(String name, WashLine[] washLines, InteriorCleaningBox[] interiorCleaningBoxes) {
         this.name = name;
@@ -24,24 +23,16 @@ public class CarWash {
         return washLines;
     }
 
-    public void setWashLines(WashLine[] washLines) {
-        this.washLines = washLines;
-    }
-
     public InteriorCleaningBox[] getInteriorCleaningBoxes() {
         return interiorCleaningBoxes;
     }
 
-    public void setInteriorCleaningBoxes(InteriorCleaningBox[] interiorCleaningBoxes) {
-        this.interiorCleaningBoxes = interiorCleaningBoxes;
+    public Optional<InteriorCleaningBox> getEmptyInteriorCleaningBox() {
+        return Arrays.stream(interiorCleaningBoxes).filter(InteriorCleaningBox::isEmpty).findFirst();
     }
 
-    public void workday() {
-        for(int i = 1; i < 180; i++) {
-            Car car = new Car(i);
-            washLines[RandomGenerator.generate(0, 4)].wash(car);
-            interiorCleaningBoxes[RandomGenerator.generate(0, 3)].clean(car);
-        }
+    public Optional<WashLine> getEmptyWashLine() {
+        return Arrays.stream(washLines).filter(WashLine::isEmpty).findFirst();
     }
 
     @Override

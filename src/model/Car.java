@@ -5,18 +5,12 @@ import basic.RandomGenerator;
 
 public class Car {
 
-    private long id;
     private String brand;
     private String color;
 
     public Car(long id) {
-        this.id = id;
         this.brand = IntTo.brand(RandomGenerator.generate(1, 5));
         this.color = IntTo.color(RandomGenerator.generate(1, 5));
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getBrand() {
@@ -38,8 +32,7 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "id=" + id +
-                ", type='" + brand + '\'' +
+                "brand='" + brand + '\'' +
                 ", color='" + color + '\'' +
                 '}';
     }
