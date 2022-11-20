@@ -3,8 +3,6 @@
 
 ## Task
 
----
-
 A car wash park consists of 5 automatic car wash lines and 4 boxes for interior cleaning. 
 
 In the first hour (afternoon), 3 to 5 cars randomly enter the wash park every 5 minutes. 
