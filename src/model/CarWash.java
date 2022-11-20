@@ -39,14 +39,14 @@ public class CarWash {
     private synchronized void enterWashLine() {
         while(washLines == 0) {
             try {
-                threadPrint("No free washLines: " + washLines);
+                threadPrint(washLines + " empty washLines, I have to wait!");
                 wait();
             } catch (InterruptedException ie) {
                 System.out.println("Exception in CarWash:washCar " + ie);
             }
         }
         washLines--;
-        threadPrint("Empty washLines after entry: " + washLines);
+        threadPrint(washLines + " empty washLines after entry");
     }
 
     /**
@@ -54,7 +54,7 @@ public class CarWash {
      */
     private synchronized void exitWashLine() {
         washLines++;
-        threadPrint("Empty washLines after exit: " + washLines);
+        threadPrint(washLines + " empty washLines after exit");
         notify();
     }
 
@@ -76,14 +76,14 @@ public class CarWash {
     private synchronized void enterInteriorCleaningBoxes() {
         while(interiorCleaningBoxes == 0) {
             try {
-                threadPrint("No free interiorCleaningBoxes: " + interiorCleaningBoxes);
+                threadPrint(interiorCleaningBoxes + " empty interiorCleaningBoxes, I have to wait!");
                 wait();
             } catch (InterruptedException ie) {
                 System.out.println("Exception in CarWash:washCar " + ie);
             }
         }
         interiorCleaningBoxes--;
-        threadPrint("Empty interiorCleaningBoxes after entry: " + interiorCleaningBoxes);
+        threadPrint(interiorCleaningBoxes + " empty interiorCleaningBoxes after entry");
     }
 
     /**
@@ -91,7 +91,7 @@ public class CarWash {
      */
     private synchronized void exitInteriorCleaningBoxes() {
         interiorCleaningBoxes++;
-        threadPrint("Empty interiorCleaningBoxes after exit: " + interiorCleaningBoxes);
+        threadPrint(interiorCleaningBoxes + " empty interiorCleaningBoxes after exit");
         notify();
     }
 
@@ -100,7 +100,7 @@ public class CarWash {
      * @param message The message to be printed on the console
      */
     private void threadPrint(String message) {
-        System.out.println(dtf.format(LocalTime.now()) + ": Thread Nr." + Thread.currentThread().getId() + " " + message);
+        System.out.println(dtf.format(LocalTime.now()) + " Thread Nr." + Thread.currentThread().getId() + ": \t " + message);
     }
 
     @Override
