@@ -5,7 +5,9 @@ import basic.RandomGenerator;
 public class CarWash {
 
     private final String name;
+    // Amount of washing lines in the Car Wash park
     private int washLines;
+    // Amount of interior cleaning boxes in the Car Wash park
     private int interiorCleaningBoxes;
 
     public CarWash(String name, int washLines, int interiorCleaningBoxes) {
@@ -14,11 +16,22 @@ public class CarWash {
         this.interiorCleaningBoxes = interiorCleaningBoxes;
     }
 
+    /**
+     * Initialize the visit of one customer in the car wash park
+     * @param car The car of the customerThrows InterruptedException because threads sleep
+     * @param interior Boolean value if the customer wants an interior cleaning
+     * @throws InterruptedException {@link #washCar(Car)} and {@link #cleanInterior(Car)}
+     */
     public void carWashVisit(Car car, boolean interior) throws InterruptedException {
         washCar(car);
         if(interior) cleanInterior(car);
     }
 
+    /**
+     * The washing process of a single car
+     * @param car The car of the customer
+     * @throws InterruptedException Can throw an InterruptedException because threads are put to sleep to simulate the work performed
+     */
     private void washCar(Car car) throws InterruptedException {
         enterWashLine();
         long duration = RandomGenerator.generate(5, 10);
@@ -27,6 +40,9 @@ public class CarWash {
         exitWashLine();
     }
 
+    /**
+     * Synchronized entering of the washing process of one customer
+     */
     private synchronized void enterWashLine() {
         while(washLines == 0) {
             try {
@@ -40,12 +56,20 @@ public class CarWash {
         threadPrint("Empty washLines after entry: " + washLines);
     }
 
+    /**
+     * Synchronized exit of the washing line of one customer
+     */
     private synchronized void exitWashLine() {
         washLines++;
         threadPrint("Empty washLines after exit: " + washLines);
         notify();
     }
 
+    /**
+     * The interior cleaning process of a single car
+     * @param car The car of the customer
+     * @throws InterruptedException Can throw an InterruptedException because threads are put to sleep to simulate the work performed
+     */
     private void cleanInterior(Car car) throws InterruptedException {
         enterInteriorCleaningBoxes();
         long duration = (long) RandomGenerator.generate(1, 3) * 5;
@@ -53,7 +77,9 @@ public class CarWash {
         threadPrint(car.toString() + " interior cleaning complete, took " + duration + " minutes.");
         exitInteriorCleaningBoxes();
     }
-
+    /**
+     * Synchronized entering of the interior cleaning process of one customer
+     */
     private synchronized void enterInteriorCleaningBoxes() {
         while(interiorCleaningBoxes == 0) {
             try {
@@ -67,12 +93,19 @@ public class CarWash {
         threadPrint("Empty interiorCleaningBoxes after entry: " + washLines);
     }
 
+    /**
+     * Synchronized exit of the interior cleaning process of one customer
+     */
     private synchronized void exitInteriorCleaningBoxes() {
         interiorCleaningBoxes++;
         threadPrint("Empty interiorCleaningBoxes after exit: " + washLines);
         notify();
     }
 
+    /**
+     * Console print with a given message. Adds the id of the currently running thread to the passed message
+     * @param message The message to be printed on the console
+     */
     private void threadPrint(String message) {
         System.out.println("Thread Nr." + Thread.currentThread().getId() + " - " + message);
     }

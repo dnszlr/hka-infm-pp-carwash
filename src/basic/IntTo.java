@@ -2,6 +2,11 @@ package basic;
 
 public class IntTo {
 
+    /**
+     * Returns a brand for a given value
+     * @param value Integer 1-5
+     * @return int 1-5 returns a car brand, every other number returns an error message
+     */
     public static String brand(int value) {
         String brand;
         switch (value) {
@@ -26,6 +31,11 @@ public class IntTo {
         return brand;
     }
 
+    /**
+     * Returns a color for a given value
+     * @param value Integer 1-5
+     * @return int 1-5 returns a color, every other number returns an error message
+     */
     public static String color(int value) {
         String color;
         switch (value) {
