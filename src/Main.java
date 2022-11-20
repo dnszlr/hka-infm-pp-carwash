@@ -29,6 +29,14 @@ public class Main {
         System.out.println();
     }
 
+    /**
+     * Creates a random amount of threads for 12 loop iterations. After each iteration the main thread sleeps 5 seconds to simulate an hour.
+     * @param minThreads The minimum amount of threads
+     * @param maxThreads The maximum amount of threads
+     * @param interiorInterval The interval at which the interior of arriving cars should be cleaned
+     * @param carWash The car wash
+     * @throws InterruptedException Can throw an InterruptedException because threads are put to sleep to simulate the duration between arriving cars.
+     */
     public static void threadExec(int minThreads, int maxThreads, int interiorInterval, CarWash carWash) throws InterruptedException {
         int interiorCounter = 1;
         for(int i = 0; i < 12; i++) {
