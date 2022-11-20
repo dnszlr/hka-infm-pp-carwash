@@ -46,7 +46,7 @@ public class CarWash {
             }
         }
         washLines--;
-        threadPrint(washLines + " empty washLines after entry");
+        threadPrint(washLines + " empty washLines after entry.");
     }
 
     /**
@@ -54,7 +54,7 @@ public class CarWash {
      */
     private synchronized void exitWashLine() {
         washLines++;
-        threadPrint(washLines + " empty washLines after exit");
+        threadPrint(washLines + " empty washLines after exit.");
         notify();
     }
 
@@ -83,7 +83,7 @@ public class CarWash {
             }
         }
         interiorCleaningBoxes--;
-        threadPrint(interiorCleaningBoxes + " empty interiorCleaningBoxes after entry");
+        threadPrint(interiorCleaningBoxes + " empty interiorCleaningBoxes after entry.");
     }
 
     /**
@@ -91,16 +91,17 @@ public class CarWash {
      */
     private synchronized void exitInteriorCleaningBoxes() {
         interiorCleaningBoxes++;
-        threadPrint(interiorCleaningBoxes + " empty interiorCleaningBoxes after exit");
+        threadPrint(interiorCleaningBoxes + " empty interiorCleaningBoxes after exit.");
         notify();
     }
 
     /**
-     * Console print with a given message. Adds the id of the currently running thread to the passed message
+     * Console print with a given message. Adds the id of the currently running thread and a timestamp to the passed message
      * @param message The message to be printed on the console
      */
     private void threadPrint(String message) {
-        System.out.println(dtf.format(LocalTime.now()) + " Thread Nr." + Thread.currentThread().getId() + ": \t " + message);
+        String uglyTab = Thread.currentThread().getId() > 99 ? " Thread Nr." : " Thread Nr. ";
+        System.out.println(dtf.format(LocalTime.now()) + uglyTab + Thread.currentThread().getId() + ": \t" + message);
     }
 
     @Override
