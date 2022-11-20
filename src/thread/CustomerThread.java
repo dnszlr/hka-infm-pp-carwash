@@ -16,7 +16,9 @@ public class CustomerThread extends Thread {
     @Override
     public void run() {
         try {
-            carWash.carWashVisit(new Car(), interior);
+            Car car = new Car();
+            if(interior) carWash.cleanInterior(car);
+            carWash.washCar(car);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

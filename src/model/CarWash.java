@@ -21,22 +21,11 @@ public class CarWash {
     }
 
     /**
-     * Initialize the visit of one customer in the car wash park
-     * @param car The car of the customerThrows InterruptedException because threads sleep
-     * @param interior Boolean value if the customer wants an interior cleaning
-     * @throws InterruptedException {@link #washCar(Car)} and {@link #cleanInterior(Car)}
-     */
-    public void carWashVisit(Car car, boolean interior) throws InterruptedException {
-        washCar(car);
-        if(interior) cleanInterior(car);
-    }
-
-    /**
      * The washing process of a single car
      * @param car The car of the customer
      * @throws InterruptedException Can throw an InterruptedException because threads are put to sleep to simulate the work performed
      */
-    private void washCar(Car car) throws InterruptedException {
+    public void washCar(Car car) throws InterruptedException {
         enterWashLine();
         long duration = RandomGenerator.generate(5, 10);
         Thread.sleep(duration * 1000);
@@ -74,7 +63,7 @@ public class CarWash {
      * @param car The car of the customer
      * @throws InterruptedException Can throw an InterruptedException because threads are put to sleep to simulate the work performed
      */
-    private void cleanInterior(Car car) throws InterruptedException {
+    public void cleanInterior(Car car) throws InterruptedException {
         enterInteriorCleaningBoxes();
         long duration = (long) RandomGenerator.generate(1, 3) * 5;
         Thread.sleep(duration * 1000);
@@ -87,14 +76,14 @@ public class CarWash {
     private synchronized void enterInteriorCleaningBoxes() {
         while(interiorCleaningBoxes == 0) {
             try {
-                threadPrint("No free interiorCleaningBoxes: " + washLines);
+                threadPrint("No free interiorCleaningBoxes: " + interiorCleaningBoxes);
                 wait();
             } catch (InterruptedException ie) {
                 System.out.println("Exception in CarWash:washCar " + ie);
             }
         }
         interiorCleaningBoxes--;
-        threadPrint("Empty interiorCleaningBoxes after entry: " + washLines);
+        threadPrint("Empty interiorCleaningBoxes after entry: " + interiorCleaningBoxes);
     }
 
     /**
@@ -102,7 +91,7 @@ public class CarWash {
      */
     private synchronized void exitInteriorCleaningBoxes() {
         interiorCleaningBoxes++;
-        threadPrint("Empty interiorCleaningBoxes after exit: " + washLines);
+        threadPrint("Empty interiorCleaningBoxes after exit: " + interiorCleaningBoxes);
         notify();
     }
 
