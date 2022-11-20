@@ -26,7 +26,7 @@ public class IntTo {
                 brand = "Audi";
                 break;
             default:
-                brand = "Something went wrong, this is not a car, it's a bike?!";
+                brand = "Something went wrong, this is not a car, but a bike?!";
         }
         return brand;
     }
