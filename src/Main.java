@@ -8,23 +8,26 @@ public class Main {
         CarWash carWash = new CarWash("A1A Car Wash", 5, 4);
         try {
             // First hour 3-5 Cars, Every 3rd car needs interior cleaning
-            printHeader("Afternoon ###");
+            printHeader("5pm, Afternoon ######");
             threadExec(3, 5, 3, carWash);
             // Second hour 4-7 Cars, Every 4th car needs interior cleaning
-            printHeader("Rush Hour ###");
+            printHeader("6pm, Rush Hour ######");
             threadExec(4, 7, 4, carWash);
             // Third hour 3-5 Cars, Every car needs interior cleaning (-1 equals every car)
-            printHeader("Evening   ###");
+            printHeader("7pm, Evening   ######");
             threadExec(3, 5, -1, carWash);
+            Thread.sleep(1);
         } catch(InterruptedException ie) {
             System.out.println("An error occurred during execution: " + ie);
         }
     }
 
-    private static void printHeader(String daytime) {
+    private static void printHeader(String time) {
+        System.out.println();
         System.out.println("##################################");
-        System.out.println("### The next hour is " + daytime);
+        System.out.println("###### It is " + time);
         System.out.println("##################################");
+        System.out.println();
     }
 
     public static void threadExec(int minThreads, int maxThreads, int interiorInterval, CarWash carWash) throws InterruptedException {

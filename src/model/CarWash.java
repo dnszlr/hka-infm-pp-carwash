@@ -2,6 +2,9 @@ package model;
 
 import basic.RandomGenerator;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class CarWash {
 
     private final String name;
@@ -9,6 +12,7 @@ public class CarWash {
     private int washLines;
     // Amount of interior cleaning boxes in the Car Wash park
     private int interiorCleaningBoxes;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 
     public CarWash(String name, int washLines, int interiorCleaningBoxes) {
         this.name = name;
@@ -107,7 +111,7 @@ public class CarWash {
      * @param message The message to be printed on the console
      */
     private void threadPrint(String message) {
-        System.out.println("Thread Nr." + Thread.currentThread().getId() + " - " + message);
+        System.out.println(dtf.format(LocalTime.now()) + ": Thread Nr." + Thread.currentThread().getId() + " " + message);
     }
 
     @Override
