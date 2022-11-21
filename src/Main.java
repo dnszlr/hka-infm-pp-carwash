@@ -36,7 +36,7 @@ public class Main {
      * @param duration The duration in which new threads should be created (hours scaled to minutes)
      * @param minThreads The minimum amount of threads
      * @param maxThreads The maximum amount of threads
-     * @param interiorInterval The interval at which the interior of arriving cars should be cleaned
+     * @param interiorInterval The interval at which the interior of arriving cars should be cleaned (-1 means every cars interior gets cleaned)
      * @param carWash The car wash
      * @throws InterruptedException Can throw an InterruptedException because threads are put to sleep to simulate the duration between arriving cars.
      */
