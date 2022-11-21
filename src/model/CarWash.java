@@ -29,7 +29,7 @@ public class CarWash {
         enterWashLine();
         long duration = RandomGenerator.generate(5, 10);
         Thread.sleep(duration * 1000);
-        threadPrint(car.toString() + " wash complete, took " + duration + " minutes.");
+        threadPrint(car + " wash complete, took " + duration + " minutes.");
         exitWashLine();
     }
 
@@ -67,7 +67,7 @@ public class CarWash {
         enterInteriorCleaningBoxes();
         long duration = (long) RandomGenerator.generate(1, 3) * 5;
         Thread.sleep(duration * 1000);
-        threadPrint(car.toString() + " interior cleaning complete, took " + duration + " minutes.");
+        threadPrint(car + " interior cleaning complete, took " + duration + " minutes.");
         exitInteriorCleaningBoxes();
     }
     /**
