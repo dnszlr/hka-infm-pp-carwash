@@ -10,9 +10,9 @@ public abstract class AbstractCarWash {
 
 	private final String name;
 	// Amount of washing lines in the Car Wash park
-	private MutableInteger washLines;
+	private final MutableInteger washLines;
 	// Amount of interior cleaning boxes in the Car Wash park
-	private MutableInteger interiorCleaningBoxes;
+	private final MutableInteger interiorCleaningBoxes;
 	private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 
 	public AbstractCarWash(String name, int washLines, int interiorCleaningBoxes) {
