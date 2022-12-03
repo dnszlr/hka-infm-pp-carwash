@@ -15,7 +15,7 @@ public class CarWashLock extends AbstractCarWash {
     }
 
     /**
-     * Synchronized entering of the washing process of one customer
+     * Enter the carWash with locks and condition.await
      */
     @Override
     protected void enter(MutableInteger type) {
@@ -37,7 +37,7 @@ public class CarWashLock extends AbstractCarWash {
     }
 
     /**
-     * Synchronized exit of the washing line of one customer
+     * Exit the carWash with locks and condition.signal
      */
     @Override
     protected void exit(MutableInteger type) {

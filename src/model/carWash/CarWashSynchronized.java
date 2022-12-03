@@ -7,7 +7,7 @@ public class CarWashSynchronized extends AbstractCarWash {
     }
 
     /**
-     * Synchronized entering of the washing process of one customer
+     * Enter the carWash with synchronized and wait.
      */
     @Override
     protected synchronized void enter(MutableInteger type) {
@@ -24,7 +24,7 @@ public class CarWashSynchronized extends AbstractCarWash {
     }
 
     /**
-     * Synchronized exit of the washing line of one customer
+     * Exit the carWash with synchronized and notify.
      */
     @Override
     protected synchronized void exit(MutableInteger type) {
