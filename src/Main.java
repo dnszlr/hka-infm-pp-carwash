@@ -72,7 +72,7 @@ public class Main {
      * @throws InterruptedException Can throw an InterruptedException because threads are put to sleep to simulate the duration between arriving cars.
      */
     public static void runnableExec(int duration, int minThreads, int maxThreads, int interiorInterval, AbstractCarWash abstractCarWash) throws InterruptedException {
-        ExecutorService pool = Executors.newFixedThreadPool(maxThreads);
+        ExecutorService pool = Executors.newCachedThreadPool();
         LocalTime endTime = LocalTime.now().plus(duration, ChronoUnit.MINUTES);
         int interiorCounter = 1;
         while (LocalTime.now().isBefore(endTime)) {
