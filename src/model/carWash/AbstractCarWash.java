@@ -51,7 +51,7 @@ public abstract class AbstractCarWash {
 	 */
 	public void cleanInterior(Car car) throws InterruptedException {
 		enter(this.interiorCleaningBoxes);
-		long duration = (long) RandomGenerator.generate(1, 3) * 5;
+		long duration = RandomGenerator.generate(1, 3) * 5L;
 		Thread.sleep(duration * 1000);
 		threadPrint(car + " interior cleaning complete, took " + duration + " minutes.");
 		exit(this.interiorCleaningBoxes);
@@ -64,14 +64,6 @@ public abstract class AbstractCarWash {
 	protected void threadPrint(String message) {
 		String uglyTab = Thread.currentThread().getId() > 99 ? "" : " ";
 		System.out.println(dtf.format(LocalTime.now()) + " Thread Nr." + uglyTab + Thread.currentThread().getId() + ": \t" + message);
-	}
-
-	public MutableInteger getWashLines() {
-		return washLines;
-	}
-
-	public MutableInteger getInteriorCleaningBoxes() {
-		return interiorCleaningBoxes;
 	}
 
 	@Override
