@@ -1,8 +1,8 @@
 import basic.RandomGenerator;
+import model.Car;
 import model.carWash.AbstractCarWash;
 import model.carWash.CarWashLock;
 import model.carWash.CarWashSynchronized;
-import thread.CustomerRunnable;
 import thread.CustomerThread;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -24,9 +24,9 @@ public class Main {
             // threadExec(1,4, 7, 4, carWashSynchronized);
             runnableExec(1,4, 7, 4, carWashLock);
             printHeader("7pm, Evening   ");
-            // Third hour 3-5 Cars, Every car needs interior cleaning (-1 equals every car)
+            // Third hour 3-5 Cars, Every car needs interior cleaning
             // threadExec(1,3, 5, -1, carWashSynchronized);
-            runnableExec(1,3, 5, -1, carWashLock);
+            runnableExec(1,3, 5, 1, carWashLock);
         } catch(InterruptedException ie) {
             System.out.println("An error occurred during execution: " + ie);
         }
@@ -55,7 +55,7 @@ public class Main {
         while (LocalTime.now().isBefore(endTime)) {
             int randomAmountOfThreads = RandomGenerator.generate(minThreads, maxThreads);
             for(int j = 0; j < randomAmountOfThreads; j++) {
-                new CustomerThread(abstractCarWash, interiorInterval == -1 || interiorCounter % interiorInterval == 0).start();
+                new CustomerThread(abstractCarWash, interiorCounter % interiorInterval == 0).start();
                 interiorCounter++;
             }
             Thread.sleep(5000);
@@ -78,7 +78,15 @@ public class Main {
         while (LocalTime.now().isBefore(endTime)) {
             int randomAmountOfThreads = RandomGenerator.generate(minThreads, maxThreads);
             for(int j = 0; j < randomAmountOfThreads; j++) {
-                pool.execute(new CustomerRunnable(abstractCarWash, interiorInterval == -1 || interiorCounter % interiorInterval == 0));
+                pool.execute(() ->  {
+                    try {
+                        Car car = new Car();
+                        if(interiorCounter % interiorInterval == 0) abstractCarWash.cleanInterior(car);
+                        abstractCarWash.washCar(car);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
             }
             Thread.sleep(5000);
         }
