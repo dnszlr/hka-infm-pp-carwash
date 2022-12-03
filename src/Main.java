@@ -78,15 +78,17 @@ public class Main {
         while (LocalTime.now().isBefore(endTime)) {
             int randomAmountOfThreads = RandomGenerator.generate(minThreads, maxThreads);
             for(int j = 0; j < randomAmountOfThreads; j++) {
+                boolean interior = interiorCounter % interiorInterval == 0;
                 pool.execute(() ->  {
                     try {
                         Car car = new Car();
-                        if(interiorCounter % interiorInterval == 0) abstractCarWash.cleanInterior(car);
+                        if(interior) abstractCarWash.cleanInterior(car);
                         abstractCarWash.washCar(car);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 });
+                interiorCounter++;
             }
             Thread.sleep(5000);
         }

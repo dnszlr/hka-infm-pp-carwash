@@ -62,7 +62,7 @@ public abstract class AbstractCarWash {
 	 * @param message The message to be printed on the console
 	 */
 	protected void threadPrint(String message) {
-		String uglyTab = Thread.currentThread().getId() < 100 ? "" : " ";
+		String uglyTab = Thread.currentThread().getId() < 100 ? " " : "";
 		System.out.println(dtf.format(LocalTime.now()) + " Thread Nr." + uglyTab + Thread.currentThread().getId() + ": \t" + message);
 	}
 
