@@ -25,7 +25,7 @@ public class Main {
             runnableExec(1,4, 7, 4, carWashLock);
             printHeader("7pm, Evening   ");
             // Third hour 3-5 Cars, Every car needs interior cleaning
-            // threadExec(1,3, 5, -1, carWashSynchronized);
+            // threadExec(1,3, 5, 1, carWashSynchronized);
             runnableExec(1,3, 5, 1, carWashLock);
         } catch(InterruptedException ie) {
             System.out.println("An error occurred during execution: " + ie);
@@ -54,7 +54,7 @@ public class Main {
         int interiorCounter = 1;
         while (LocalTime.now().isBefore(endTime)) {
             int randomAmountOfThreads = RandomGenerator.generate(minThreads, maxThreads);
-            for(int j = 0; j < randomAmountOfThreads; j++) {
+            while(randomAmountOfThreads-- > 0) {
                 new CustomerThread(abstractCarWash, interiorCounter % interiorInterval == 0).start();
                 interiorCounter++;
             }
@@ -77,7 +77,8 @@ public class Main {
         int interiorCounter = 1;
         while (LocalTime.now().isBefore(endTime)) {
             int randomAmountOfThreads = RandomGenerator.generate(minThreads, maxThreads);
-            for(int j = 0; j < randomAmountOfThreads; j++) {
+            System.out.println("randomAmountOfThreads :" + randomAmountOfThreads);
+            while(randomAmountOfThreads-- > 0) {
                 boolean interior = interiorCounter % interiorInterval == 0;
                 pool.execute(() ->  {
                     try {
