@@ -17,3 +17,11 @@ Implement this situation with threads, synchronized, wait and notify. Scale minu
 ## Task 2
 
 Convert your washpark scenario to the executor framework and lock/condition. Test different ExecutorServices and see if you can make the code more compact with lambda expressions.
+
+## Task 3
+
+Code review for another student
+
+## Task 4
+
+Convert your car wash scenario to semaphores for the coordination of car wash lanes and cleaning boxes.
