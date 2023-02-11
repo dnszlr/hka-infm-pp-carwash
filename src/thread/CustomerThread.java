@@ -2,7 +2,6 @@ package thread;
 
 import model.Car;
 import model.carWash.AbstractCarWash;
-import model.carWash.CarWashSynchronized;
 
 public class CustomerThread extends Thread {
 

@@ -1,8 +1,9 @@
 import basic.RandomGenerator;
 import model.Car;
 import model.carWash.AbstractCarWash;
-import model.carWash.CarWashLock;
-import model.carWash.CarWashSynchronized;
+import model.carWash.LockCarWash;
+import model.carWash.SemaphoreCarWash;
+import model.carWash.SynchronizedCarWash;
 import thread.CustomerThread;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -12,21 +13,23 @@ import java.util.concurrent.Executors;
 public class Main {
     public static void main(String[] args) {
         // init CarWash
-        AbstractCarWash carWashSynchronized = new CarWashSynchronized("A1A Car Wash", 5, 4);
-        AbstractCarWash carWashLock = new CarWashLock("A1A Car Wash", 5, 4);
+        SynchronizedCarWash synchronizedCarWash = new SynchronizedCarWash("A1A Car Wash", 5, 4);
+        LockCarWash lockCarWash = new LockCarWash("A1A Car Wash", 5, 4);
+        SemaphoreCarWash semaphoreCarWash = new SemaphoreCarWash("A1A Car Wash", 5, 4);
+        AbstractCarWash acw = semaphoreCarWash;
         try {
             printHeader("5pm, Afternoon ");
             // First hour 3-5 Cars, Every 3rd car needs interior cleaning
-            // threadExec(1,3, 5, 3, carWashSynchronized);
-            runnableExec(1, 3, 5, 3, carWashLock);
+            // threadExec(1, 3, 5, 3, carWashSynchronized);
+            runnableExec(1, 3, 5, 3, acw);
             printHeader("6pm, Rush Hour ");
             // Second hour 4-7 Cars, Every 4th car needs interior cleaning
-            // threadExec(1,4, 7, 4, carWashSynchronized);
-            runnableExec(1,4, 7, 4, carWashLock);
+            // threadExec(1, 4, 7, 4, carWashSynchronized);
+            runnableExec(1,4, 7, 4, acw);
             printHeader("7pm, Evening   ");
             // Third hour 3-5 Cars, Every car needs interior cleaning
-            // threadExec(1,3, 5, 1, carWashSynchronized);
-            runnableExec(1,3, 5, 1, carWashLock);
+            // threadExec(1, 3, 5, 1, carWashSynchronized);
+            runnableExec(1,3, 5, 1, acw);
         } catch(InterruptedException ie) {
             System.out.println("An error occurred during execution: " + ie);
         }
@@ -54,6 +57,7 @@ public class Main {
         int interiorCounter = 1;
         while (LocalTime.now().isBefore(endTime)) {
             int randomAmountOfThreads = RandomGenerator.generate(minThreads, maxThreads);
+            System.out.println("Arriving Cars: " + randomAmountOfThreads);
             while(randomAmountOfThreads-- > 0) {
                 new CustomerThread(abstractCarWash, interiorCounter % interiorInterval == 0).start();
                 interiorCounter++;
@@ -77,7 +81,7 @@ public class Main {
         int interiorCounter = 1;
         while (LocalTime.now().isBefore(endTime)) {
             int randomAmountOfThreads = RandomGenerator.generate(minThreads, maxThreads);
-            System.out.println("randomAmountOfThreads :" + randomAmountOfThreads);
+            System.out.println("Arriving Cars: " + randomAmountOfThreads);
             while(randomAmountOfThreads-- > 0) {
                 boolean interior = interiorCounter % interiorInterval == 0;
                 pool.execute(() ->  {

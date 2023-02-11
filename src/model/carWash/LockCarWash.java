@@ -1,15 +1,20 @@
 package model.carWash;
 
+import model.blocker.AbstractCounter;
+import model.blocker.IntegerCounter;
+import model.blocker.Type;
+
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class CarWashLock extends AbstractCarWash {
+public class LockCarWash extends AbstractCarWash {
 
     private final ReentrantLock lock;
     private final Condition condition;
 
-    public CarWashLock(String name, int washLines, int interiorCleaningBoxes) {
-        super(name, washLines, interiorCleaningBoxes);
+
+    public LockCarWash(String name, int washLines, int interiorCleaningBoxes) {
+        super(name, new IntegerCounter(washLines, Type.WASHLINE), new IntegerCounter(interiorCleaningBoxes, Type.INTERIORCLEANINGBOX));
         this.lock = new ReentrantLock();
         this.condition = lock.newCondition();
     }
@@ -18,19 +23,19 @@ public class CarWashLock extends AbstractCarWash {
      * Enter the carWash with locks and condition.await
      */
     @Override
-    protected void enter(MutableInteger type) {
+    protected void enter(AbstractCounter line) throws InterruptedException {
         lock.lock();
         try {
-            while(type.isFull()) {
+            while(line.isFull()) {
                 try {
-                    threadPrint(type.get() + " empty " + type + ", I have to wait!");
+                    threadPrint(line.get() + " empty " + line + ", I have to wait!");
                     condition.await();
                 } catch(InterruptedException ie) {
                     System.out.println("Exception in CarWash:enter " + ie);
                 }
             }
-            type.decrement();
-            threadPrint(type.get() + " empty " + type + " after entry.");
+            line.decrement();
+            threadPrint(line.get() + " empty " + line + " after entry.");
         } finally {
             lock.unlock();
         }
@@ -40,11 +45,11 @@ public class CarWashLock extends AbstractCarWash {
      * Exit the carWash with locks and condition.signal
      */
     @Override
-    protected void exit(MutableInteger type) {
+    protected void exit(AbstractCounter line) {
         lock.lock();
         try {
-            type.increment();
-            threadPrint(type.get() + " empty " + type + " after exit.");
+            line.increment();
+            threadPrint(line.get() + " empty " + line + " after exit.");
             condition.signal();
         } finally {
             lock.unlock();

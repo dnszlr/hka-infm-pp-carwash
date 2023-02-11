@@ -1,13 +1,12 @@
-package model.carWash;
+package model.blocker;
 
-public class MutableInteger {
+public class IntegerCounter extends AbstractCounter{
 
 	private int value;
-	private final String type;
 
-	public MutableInteger(int value, String type) {
+	public IntegerCounter(int value, Type type) {
+		super(type);
 		this.value = value;
-		this.type = type;
 	}
 
 	public int get() {
@@ -24,10 +23,5 @@ public class MutableInteger {
 
 	public boolean isFull() {
 		return this.value == 0;
-	}
-
-	@Override
-	public String toString() {
-		return type;
 	}
 }

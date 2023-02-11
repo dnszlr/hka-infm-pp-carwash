@@ -2,7 +2,7 @@ package model.carWash;
 
 import basic.RandomGenerator;
 import model.Car;
-
+import model.blocker.AbstractCounter;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,15 +10,15 @@ public abstract class AbstractCarWash {
 
 	private final String name;
 	// Amount of washing lines in the Car Wash park
-	private final MutableInteger washLines;
+	private final AbstractCounter washLines;
 	// Amount of interior cleaning boxes in the Car Wash park
-	private final MutableInteger interiorCleaningBoxes;
+	private final AbstractCounter interiorCleaningBoxes;
 	private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 
-	public AbstractCarWash(String name, int washLines, int interiorCleaningBoxes) {
+	public AbstractCarWash(String name, AbstractCounter washLines, AbstractCounter interiorCleaningBoxes) {
 		this.name = name;
-		this.washLines = new MutableInteger(washLines, "Wash Lines");
-		this.interiorCleaningBoxes = new MutableInteger(interiorCleaningBoxes, "Interior Cleaning Boxes");
+		this.washLines = washLines;
+		this.interiorCleaningBoxes = interiorCleaningBoxes;
 	}
 
 	/**
@@ -37,12 +37,12 @@ public abstract class AbstractCarWash {
 	/**
 	 * Enter the carWash
 	 */
-	protected abstract void enter(MutableInteger type);
+	protected abstract void enter(AbstractCounter line) throws InterruptedException;
 
 	/**
 	 * Exit the carWash
 	 */
-	protected abstract void exit(MutableInteger type);
+	protected abstract void exit(AbstractCounter line);
 
 	/**
 	 * The interior cleaning process of a single car
