@@ -20,7 +20,7 @@ Convert your washpark scenario to the executor framework and lock/condition. Tes
 
 ## Task 3
 
-Code review for another student
+Code review for another student.
 
 ## Task 4
 
