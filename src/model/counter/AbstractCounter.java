@@ -1,4 +1,4 @@
-package model.blocker;
+package model.counter;
 
 public abstract class AbstractCounter {
 

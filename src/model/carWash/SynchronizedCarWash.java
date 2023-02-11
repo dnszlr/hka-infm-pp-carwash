@@ -1,8 +1,8 @@
 package model.carWash;
 
-import model.blocker.AbstractCounter;
-import model.blocker.IntegerCounter;
-import model.blocker.Type;
+import model.counter.AbstractCounter;
+import model.counter.IntegerCounter;
+import model.counter.Type;
 
 public class SynchronizedCarWash extends AbstractCarWash {
 

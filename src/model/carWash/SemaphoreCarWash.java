@@ -1,8 +1,8 @@
 package model.carWash;
 
-import model.blocker.AbstractCounter;
-import model.blocker.SemaphoreCounter;
-import model.blocker.Type;
+import model.counter.AbstractCounter;
+import model.counter.SemaphoreCounter;
+import model.counter.Type;
 
 public class SemaphoreCarWash extends AbstractCarWash {
 

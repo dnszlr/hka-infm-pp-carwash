@@ -2,7 +2,7 @@ package model.carWash;
 
 import basic.RandomGenerator;
 import model.Car;
-import model.blocker.AbstractCounter;
+import model.counter.AbstractCounter;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
